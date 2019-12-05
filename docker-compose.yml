@@ -13,7 +13,7 @@ x-cache:
 services:
   php:
     &php
-    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-php:${APP_ENV}
+    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-php:${APP_BUILD}
     build:
       context: ./api
       target: api_platform_php
@@ -50,7 +50,7 @@ services:
       - "8082:80"
 
   api:
-    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx:${APP_ENV}
+    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx:${APP_BUILD}
     build:
       context: ./api
       target: api_platform_nginx
@@ -71,7 +71,7 @@ services:
 
   cache-proxy:
     &varnish
-    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-varnish:${APP_ENV}
+    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-varnish:${APP_BUILD}
     build:
       context: ./api
       target: api_platform_varnish
@@ -89,7 +89,7 @@ services:
      - BACKENDS=php
       
   nlx-outway:
-    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nlx-outway:${APP_ENV}
+    image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nlx-outway:${APP_BUILD}
     build:
       context: ./api
       target: api-nlx-outway
@@ -109,7 +109,7 @@ services:
  # Uncomment the follwoign lines if you want to deploy trough a docker-compose chart and wish to use an nlx inway
  # 
  # nlx-inway:
- #   image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nlx-inway:${APP_ENV}
+ #   image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nlx-inway:${APP_BUILD}
  #   build:
  #     context: ./api
  #     target: api-nlx-inway
