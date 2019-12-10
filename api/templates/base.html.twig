@@ -1,12 +1,274 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+<html lang="en">
+	<head>
+        <script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="conduction.nl">
+        <title>{% block title %}
+                {% if organisation is defined %}
+                {{ organisation.name }}
+                {% else %} 
+                	{% if is_granted('IS_AUTHENTICATED_FULLY')  or is_granted('IS_AUTHENTICATED_REMEMBERED') %} 
+                    {{ app.user.name }}
+                    {% else %} 
+                    Wij
+               	    {% endif %}
+                {% endif %}
+                {% endblock %}
+        </title>
+        
+        <!-- CSS and fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,100italic,300italic,400' rel='stylesheet' type='text/css'>
+        
         {% block stylesheets %}{% endblock %}
+        
+        <style>
+        
+/************
+Organisation page
+************/
+.organisation-well {
+    width: 150px;	    
+    position: relative;
+  	float: left;
+    margin-top: 15px;
+    margin-right: 15px;
+  	
+}
+
+.organisation-portrait {
+    width: 138px;
+    height: 100px;
+    position: absolute;
+    top: 6px;
+  	text-align: center;
+}
+
+.organisation-buttons {
+    padding-top: 5px;
+    padding-bottom: 5px;	
+}
+	
+.organisation {
+	/*background-color: #ededed;*/
+	border: 6px solid #EDEDED;
+    border-radius: 6px;
+    width: 150px;
+    height: 150px;
+}
+
+.organisation img{	
+	max-width:100%;
+	max-height:100%;
+}
+
+.organisation-type {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: -6px;    
+    left: -12px;
+	
+}
+
+.organisation-title {
+	background-color: #ededed;
+    position: absolute;
+    left: 0px;
+    top: 110px;
+    height: 37px;
+    width: 150px;	
+    align-content: center;
+    text-align: center;
+}
+
+.panel-icon{
+    padding-top: 10px;
+}
+
+.panel-body{
+    height: 255px;
+}
+
+.portfolio-image{
+	background-color: #fff;
+}
+
+/************
+Organisation specific overwrites
+************/
+
+        {% if organisation is defined and organisation.css is defined  %}
+        	{{ organisation.css }}
+        {% endif %}
+        </style>
     </head>
     <body>
+
+      <!-- anchorpoint for the chervrons -->
+      <a name="top"></a>
+
+
+    	<div class="site-holder">
+    	
+		{# Let include the header #}
+		{{ include('header.html.twig') }}			
+		
+		{# Let include the menus #}
+		{{ include('menu.html.twig') }}	
+		
         {% block body %}{% endblock %}
+        
+        </div>
+        <!-- JavaScript
+        ================================================== -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    	<script src="https://kit.fontawesome.com/a3efcee1c4.js"></script>
+         <script type="text/javascript">
+            $( document ).ready(function() {
+              
+              var numItems = $('#timeline .timeline-badge').length;
+              var gradientColours = "";
+    
+              for(var i = 0; i < numItems; i ++){
+                if(i > 0) gradientColours += ", ";
+                var badgeClass  = "";
+                var lineClass  = "";
+                
+                // change the gradientColours value as required. Also see badgeClass and lineClass in css/styles.css
+                if((i+1) % 4 == 0){
+                    badgeClass  = "badge-4";
+                    lineClass  = "line-4";
+                    gradientColours += "#70c6da";
+                }else if((i+1) % 3 == 0){
+                    badgeClass  = "badge-3";
+                    lineClass  = "line-3";
+                    gradientColours += "#6fc6d9";
+                }else if((i+1) % 2 == 0){
+                    badgeClass  = "badge-2";
+                    lineClass  = "line-2";
+                    gradientColours += "#56c2b1";
+                }else{
+                    badgeClass  = "badge-1";
+                    lineClass  = "line-1";
+                    gradientColours += "#ed78a6";
+                }
+                if(i < numItems -1){
+                  ($('#timeline .timeline-line').eq(i)).addClass(lineClass);
+                }
+                ($('#timeline .timeline-badge').eq(i)).addClass(badgeClass);
+              }
+    
+              var styleString = "<style>";
+              styleString += ".timeline:before{background: -webkit-linear-gradient('+gradientColours+');background: -o-linear-gradient('+gradientColours+'); background: -moz-linear-gradient('+gradientColours+'); background: linear-gradient('+gradientColours+')}";
+              styleString += "</style>";
+    
+              $('head').append(styleString);
+    
+    
+              // Sticky Menu
+              var stickyNavTop = $('.header-menu').offset().top + 30;
+              var stickyNavTopMobile = $('.mobile-header-menu').offset().top + 10;
+              var stickyNav = function(){
+              var scrollTop = $(window).scrollTop();
+                 
+                if(scrollTop > stickyNavTopMobile) {
+                  $('.mobile-header-menu').addClass('mobile-sticky');
+                  $('.mobile-header-menu .menu-logo').addClass('show');
+                }else{
+                  $('.mobile-header-menu').removeClass('mobile-sticky');
+                  $('.mobile-header-menu .menu-logo').removeClass('show');
+                }
+    
+                if (scrollTop > stickyNavTop) { 
+                    $('.header-menu').addClass('sticky');
+                    $('.header-menu-content').addClass('header-menu-content-sticky'); 
+                    $('.header-menu').removeClass('container'); 
+                    $('.header-menu').removeClass('fluid-container'); 
+                    $('.header-menu').removeClass('content-area'); 
+                    $('.header-menu-content .menu-logo').addClass('show');
+                    
+                } else {
+                    $('.header-menu').removeClass('sticky'); 
+                    $('.header-menu-content').removeClass('header-menu-content-sticky'); 
+                    $('.header-menu').addClass('container'); 
+                    $('.header-menu').addClass('fluid-container'); 
+                    $('.header-menu').addClass('content-area'); 
+                    $('.header-menu-content .menu-logo').removeClass('show');
+                    
+                }
+              };
+               
+              stickyNav();
+               
+              $(window).scroll(function() {
+                  stickyNav();
+              });
+    
+            });
+            
+            function scrollToAnchor(aid){
+                var aTag = $("a[name='"+ aid +"']");
+                $('html,body').animate({scrollTop: aTag.offset().top-80},'slow');
+            }
+    
+
+            /*
+            This method takes an modal-id plus the button that was pressed.
+            Sets all the cos to hide and the clicked button to shown.
+            */
+            function showDoc(docs, docId){
+
+                $(docs).removeClass("show");
+                $(docs).addClass("hide");
+                $(docId).removeClass("hide");
+                $(docId).addClass("show");
+            }
+                
+            /*
+            This method takes an array of filters plus the button that was pressed.
+            Change the classes (web, print, mobile) as required.
+            */
+            function filterPortfolio(filters, filterBtn){
+                $('#allFilter').removeClass("filter-selected");
+                $('#sourceFilter').removeClass("filter-selected");
+                $('#applicationFilter').removeClass("filter-selected");
+                $('#toolFilter').removeClass("filter-selected");
+    
+                $('.source').removeClass("show");
+                $('.application').removeClass("show");
+                $('.tool').removeClass("show");
+                $('.source').addClass("hide");
+                $('.application').addClass("hide");
+                $('.tool').addClass("hide");
+    
+                for(var i = 0; i < filters.length; i ++){
+                  $('.'+filters[i]).addClass("show");
+                }
+                
+                if(filterBtn == "allFilter"){
+                  $('#allFilter').addClass("filter-selected");
+                  $('#sourceFilter').addClass("filter-selected");
+                  $('#applicationFilter').addClass("filter-selected");
+                  $('#toolFilter').addClass("filter-selected");
+                }else{
+                  $('#'+filterBtn).addClass("filter-selected");
+                }
+              
+            }
+            filterPortfolio(["all", "source", "application", "tool"], "allFilter");
+         </script>
+         
+         <!-- Start of HubSpot Embed Code -->
+         <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6108438.js"></script>
+         <!-- End of HubSpot Embed Code -->
+         
         {% block javascripts %}{% endblock %}
     </body>
 </html>
