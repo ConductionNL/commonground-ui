@@ -1,10 +1,10 @@
 openapi: 3.0.2
 info:
-  title: 'Common Ground'
+  title: 'Commmon Ground'
   version: V.0.1
   description: |
     API Details
-    - Component: Common Ground
+    - Component: Commmon Ground
     - Reference: cgui
     - Enviroment: dev
     - Version: V.0.1
