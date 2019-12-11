@@ -10,22 +10,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends AbstractController
+/**
+ * @Route("/organization")
+ */
+class OrganizationController extends AbstractController
 {
     /**
      * @Route("/")
      * @Template
      */
-    public function indexAction(Request $request, EntityManagerInterface $em)
+    public function indexAction(Request $request)
     {
-    	return ["organisations" => [], "components"=> [] , "apis"=> []];
+        return [];
     }
     
     /**
-     * @Route("/page/{slug}")
+     * @Route("/{slug}")
      * @Template
      */
-    public function pageAction(Request $request, $slug)
+    public function viewAction(Request $request, $slug)
     {
     	return [];
     }

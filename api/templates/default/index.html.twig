@@ -89,7 +89,7 @@
                 </div>
                 <div class="row">              
                   	{% for organisation in organisations %}
-                      {% include 'home/organisation-thumb.html.twig' with {'organisation': organisation} %}
+                      {% include 'default/organisation-thumb.html.twig' with {'organisation': organisation} %}
                  	{% endfor %}                   
                 </div>
               </div>
@@ -115,7 +115,7 @@
 
                 <div class="row">              
                   	{% for api in apis %}
-                      {% include 'home/api-thumb.html.twig' with {'item': api} %}
+                      {% include 'default/api-thumb.html.twig' with {'item': api} %}
                  	{% endfor %}                   
                 </div>
               </div>
@@ -150,15 +150,15 @@
 
                 <div class="row">              
                   	{% for component in components %}
-                      {% include 'home/component-thumb.html.twig' with {'item': component} %}
+                      {% include 'default/component-thumb.html.twig' with {'item': component} %}
                  	{% endfor %}                   
                 </div>
               </div>
             </div>
           </li>
-             {% include 'home/add.html.twig' %}
+             {% include 'default/add.html.twig' %}
           {# if is_granted('IS_AUTHENTICATED_FULLY') == false  and is_granted('IS_AUTHENTICATED_REMEMBERED')  == false %}
-             {% include 'home/login.html.twig' %}
+             {% include 'default/login.html.twig' %}
           {% endif #}
         </ul>
       </div>
@@ -168,7 +168,7 @@
     </div> 
     
     {% for component in components %}
-    	{% include 'home/component-modal.html.twig' with {'component': component} %}
+    	{% include 'default/component-modal.html.twig' with {'component': component} %}
     {% endfor %} 
     
 {% endblock %}
