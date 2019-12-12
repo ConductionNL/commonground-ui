@@ -1,0 +1,128 @@
+{# templates/home/modal.html.twig #}
+ <!--  Modal -->
+    <div class="modal fade" id="component-{{ component.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+         <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+         <div class="modal-body container-fluid portfolio web">
+            <!--  Carousel -->
+            <div id="carousel-portfolio-{{ component.id }}" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner" role="listbox">
+              
+              	{# 
+                <div class="item active">
+                  <img src="{{ component.logo  }}" alt="" />
+                </div>
+              for image in item.images %}
+                <div class="item active">
+                  <img src="{{ component.logo  }}" alt="" />
+                </div>
+             	{% endfor #}
+              </div>
+
+              <!-- Controls -->
+              <!--
+                Remove these controls if you are only using one image in the carousel.
+              <a class="left carousel-control" href="#carousel-portfolio-{{ component.id }}" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              </a>
+              <a class="right carousel-control" href="#carousel-portfolio-{{ component.id }}" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </a>
+              -->
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="portfolio-title">
+                  <div class="portfolio-icon 	{% if component.type == 'source'%}
+                          	background-1
+                          	{% elseif component.type == 'tool' %}
+                           background-3
+                          	{% else %}
+                           background-2                       	
+                          	{% endif %}">
+                 	<div>
+                    	{% if component.type == 'source'%}
+                     	<i class="fad fa-database"></i>
+                        {% elseif component.type == 'tool' %}
+                       	<i class="fad fa-tools"></i>
+                        {% else %}{# lets default to application#}
+                   		<i class="fad fa-browser"></i>                          	
+                        {% endif %}
+                 	</div>
+                  </div>
+                  <div class="title">
+                    <h4>{{ component.name|capitalize|replace({'-': " ", "_" : " "}) }}</h4>
+                    {% if component.version %}Versie <em>{{ component.version }}</em>{% endif %}
+                    {#
+                    Licentie <a href="{{ item.license.url}}">{{ item.license.name}}</a><br />
+                    Ontwikkelaar <a href="{{ item.license.url}}">{{ item.license.name}}</a><br />
+                    Eigenaar <a href="{{ item.license.url}}">{{ item.license.name}}</a><br />
+                    #}
+                  </div>
+                  <br />
+                  {% if component.docs|length > 0 %}  
+                  <p>
+                  	<b>Documentatie</b><br />
+                    {% for key,doc in component.docs if doc %}
+                  		<a href="#" onclick="showDoc('.component-{{ component.id }}-doc', '.component-{{ component.id }}-doc-{{ key }}')">{{ key|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                  {% if component.tags|length > 0 %}  
+                  <p>
+                  	<b>Informatie Model</b><br />   
+                    {% for tag in component.tags %}
+                  		{{ tag.name }}<br />
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                  {% if component.git is defined  %}
+                  <p>
+                  	<b>Repositories</b> <br />      	
+                  	<a href="{{ component.git }}" target="_blank">{{ component.gitType|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />                    
+                  </p>
+                  {% endif %}
+                  {% if component.openapi.servers is defined and component.openapi.servers|length > 0 %}  
+                  <p>
+                  	<b>Servers</b> <br />      	
+                    {% for server in component.openapi.servers if (server.url is defined and server.description is defined)  %}
+                  		<a href="{{ server.url }}" target="_blank">{{ server.description|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                  {% if  component.openapi.externalDocs is defined and  component.openapi.externalDocs|length > 0 %}  
+                  <p>
+                  	<b>Verwijzingen</b><br />           
+                    {% for externalDoc in component.openapi.externalDocs if (externalDoc.url is defined and externalDoc.description is defined)  %}
+                  		<a href="{{ externalDoc.url }}" target="_blank">{{ externalDoc.description|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                  <p>
+                  	<b>Credits</b><br />           
+                    {% for organisation in component.organisations %}
+                  		<a href="{{ organisation.url }}" target="_blank">{{ organisation.name }}</a><br />
+                    {% endfor %}
+                  </p>
+                </div>
+                <div >
+                	<a href="{{ path('app_component_refresh',  {'component': component.id}) }}">Refresh</a>
+                </div>
+              </div>
+              <div class="modal-text col-md-7">
+              	<div id="accordion-{{ component.id }}">
+               	  {% if component.docs|length > 0 %}  
+                  {% for key,doc in component.docs if doc  %}
+                  	<div class="component-{{ component.id }}-doc component-{{ component.id }}-doc-{{ key }} {% if key!= 'readme'%}hide{%else%}show{% endif %}">{{ doc | raw }}</div>
+                  {% endfor %}
+                  {% else %}
+                  Er kon geen documentatie worden gevonden voor dit component, bevat het een readme.md bestand?
+                  {% endif %}
+              	</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
