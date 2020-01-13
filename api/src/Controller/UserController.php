@@ -15,41 +15,39 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-	/**
-	 * @Route("/")
-	 * @Template
-	 */
-	public function indexAction(Request $request)
-	{
-		return [];
-	}
-	
-	/**
-	 * @Route("/login")
-	 * @Template
-	 */
-	public function loginAction(Request $request, EntityManagerInterface $em)
-	{
-		return [];
-	}
-	
-	
-	/**
-	 * @Route("/logout")
-	 * @Template
-	 */
-	public function logoutAction(Request $request, EntityManagerInterface $em)
-	{
-		return [];
-	}
-	
-	/**
-	 * @Route("/{slug}")
-	 * @Template
-	 */
-	public function viewAction(Request $request, $slug)
-	{
-		return [];
-	}
-	
+    /**
+     * @Route("/")
+     * @Template
+     */
+    public function indexAction(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/login")
+     * @Template
+     */
+    public function loginAction(Request $request, EntityManagerInterface $em)
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/logout")
+     * @Template
+     */
+    public function logoutAction(Request $request, EntityManagerInterface $em)
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/{slug}")
+     * @Template
+     */
+    public function viewAction(Request $request, $slug)
+    {
+        return [];
+    }
 }

@@ -4,7 +4,6 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +22,13 @@ class OrganizationController extends AbstractController
     {
         return [];
     }
-    
+
     /**
      * @Route("/{slug}")
      * @Template
      */
     public function viewAction(Request $request, $slug)
     {
-    	return [];
+        return [];
     }
 }

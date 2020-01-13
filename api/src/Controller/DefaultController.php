@@ -18,15 +18,15 @@ class DefaultController extends AbstractController
      */
     public function indexAction(Request $request, EntityManagerInterface $em)
     {
-    	return ["organisations" => [], "components"=> [] , "apis"=> []];
+        return ['organisations' => [], 'components'=> [], 'apis'=> []];
     }
-    
+
     /**
      * @Route("/page/{slug}")
      * @Template
      */
     public function pageAction(Request $request, $slug)
     {
-    	return [];
+        return [];
     }
 }
