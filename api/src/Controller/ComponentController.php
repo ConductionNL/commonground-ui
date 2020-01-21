@@ -21,7 +21,9 @@ class ComponentController extends AbstractController
 	 */
 	public function indexAction(Request $request)
 	{
-		return [];
+		$components = $commonGroundService->getResourceList('https://vrc.zaakonline.nl/requests');
+		
+		return ["components"=>$components];
 	}
 	
 	/**

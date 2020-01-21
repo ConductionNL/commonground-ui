@@ -10,15 +10,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\CommonGroundService;
+
 class DefaultController extends AbstractController
 {
     /**
      * @Route("/")
      * @Template
      */
-    public function indexAction(Request $request, EntityManagerInterface $em)
+	public function indexAction(Request $request, CommonGroundService $commonGroundService)
     {
-    	return ["organisations" => [], "components"=> [] , "apis"=> []];
+    	$components = $commonGroundService->getResourceList('http://cgrc.huwelijksplanner.online/components',['commonground'=>'true']);
+    	
+    	return ["organisations" => [], "components"=> $components, "apis"=> []];
     }
     
     /**

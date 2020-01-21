@@ -2,20 +2,20 @@
 
  	
                   <!-- Thumb -->
-                  <div class="col-md-4 col-sm-6 portfolio {{ component.type }} web panel" data-toggle="modal" data-target="#component-{{ component.id }}">
+                  <div class="col-md-4 col-sm-6 portfolio {% if component.type is defined %}{{ component.type }}{% endif %} web panel" data-toggle="modal" data-target="#component-{{ component.id }}">
                     <div class="panel-body">
                       <div class="portfolio-title">
-                        <div class="portfolio-icon 	{% if component.type == 'source'%}
+                        <div class="portfolio-icon 	{% if component.type is defined and component.type == 'source'%}
                           	background-1
-                          	{% elseif component.type == 'tool' %}
+                          	{% elseif component.type is defined and component.type == 'tool' %}
                            background-3
                           	{% else %}
                            background-2                       	
                           	{% endif %}">
                           <div>
-                          	{% if component.type == 'source'%}
+                          	{% if component.type is defined and component.type == 'source'%}
                           	<i class="fad fa-database"></i>
-                          	{% elseif component.type == 'tool' %}
+                          	{% elseif component.type is defined and  component.type == 'tool' %}
                           	<i class="fad fa-tools"></i>
                           	{% else %}{# lets default to application#}
                           	<i class="fad fa-browser"></i>                          	
@@ -24,7 +24,7 @@
                         </div>
                         <div class="title">
                           <h4>{{ component.name|length > 20 ? component.name|slice(0, 20) ~ '...' : component.name|capitalize|replace({'-': " ", "_" : " "})  }}</h4>
-                          <em>{{ component.description|slice(0, 250) }}</em>
+                          <em>{{ component.summary|slice(0, 250) }}</em>
                         </div>
                       </div>
                     </div>
