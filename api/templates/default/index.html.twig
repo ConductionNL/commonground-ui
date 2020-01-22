@@ -66,7 +66,7 @@
               </div>
             </div>
           </li>
-
+		 {#
           <li>
             <a name="organisations"></a>
             <div class="timeline-badge"></div>
@@ -121,7 +121,7 @@
               </div>
             </div>
           </li>
-                    
+          #}          
           <li>
             <a name="components"></a>
             <div class="timeline-badge"></div>
@@ -149,7 +149,7 @@
                 </div>
 
                 <div class="row">              
-                  	{% for component in components %}
+                  	{% for component in components["hydra:member"] %}
                       {% include 'default/component-thumb.html.twig' with {'item': component} %}
                  	{% endfor %}                   
                 </div>
@@ -167,7 +167,7 @@
       </div>
     </div> 
     
-    {% for component in components %}
+    {% for component in components["hydra:member"] %}
     	{% include 'default/component-modal.html.twig' with {'component': component} %}
     {% endfor %} 
     

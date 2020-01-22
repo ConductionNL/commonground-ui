@@ -34,17 +34,17 @@
             <div class="row">
               <div class="col-md-5">
                 <div class="portfolio-title">
-                  <div class="portfolio-icon 	{% if component.type == 'source'%}
+                  <div class="portfolio-icon 	{% if  component.type is defined and component.type == 'source'%}
                           	background-1
-                          	{% elseif component.type == 'tool' %}
+                          	{% elseif  component.type is defined and component.type == 'tool' %}
                            background-3
                           	{% else %}
                            background-2                       	
                           	{% endif %}">
                  	<div>
-                    	{% if component.type == 'source'%}
+                    	{% if  component.type is defined and component.type == 'source'%}
                      	<i class="fad fa-database"></i>
-                        {% elseif component.type == 'tool' %}
+                        {% elseif  component.type is defined and component.type == 'tool' %}
                        	<i class="fad fa-tools"></i>
                         {% else %}{# lets default to application#}
                    		<i class="fad fa-browser"></i>                          	
@@ -61,29 +61,29 @@
                     #}
                   </div>
                   <br />
-                  {% if component.docs|length > 0 %}  
+                  {% if component.files|length > 0 %}  
                   <p>
                   	<b>Documentatie</b><br />
-                    {% for key,doc in component.docs if doc %}
+                    {# for key,doc in component.files if doc %}
                   		<a href="#" onclick="showDoc('.component-{{ component.id }}-doc', '.component-{{ component.id }}-doc-{{ key }}')">{{ key|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />
-                    {% endfor %}
+                    {% endfor #}
                   </p>
                   {% endif %}
-                  {% if component.tags|length > 0 %}  
+                  {# if component.tags|length > 0 %}  
                   <p>
                   	<b>Informatie Model</b><br />   
                     {% for tag in component.tags %}
                   		{{ tag.name }}<br />
                     {% endfor %}
                   </p>
-                  {% endif %}
+                  {% endif #}
                   {% if component.git is defined  %}
                   <p>
                   	<b>Repositories</b> <br />      	
                   	<a href="{{ component.git }}" target="_blank">{{ component.gitType|capitalize|replace({'-': " ", "_" : " "}) }}</a><br />                    
                   </p>
                   {% endif %}
-                  {% if component.openapi.servers is defined and component.openapi.servers|length > 0 %}  
+                  {#if component.openapi.servers is defined and component.openapi.servers|length > 0 %}  
                   <p>
                   	<b>Servers</b> <br />      	
                     {% for server in component.openapi.servers if (server.url is defined and server.description is defined)  %}
@@ -103,21 +103,23 @@
                   	<b>Credits</b><br />           
                     {% for organisation in component.organisations %}
                   		<a href="{{ organisation.url }}" target="_blank">{{ organisation.name }}</a><br />
-                    {% endfor %}
+                    {% endfor #}
                 </div>
+                {#
                 <div >
                 	<a href="{{ path('app_component_refresh',  {'component': component.id}) }}">Refresh</a>
                 </div>
+                #}
               </div>
               <div class="modal-text col-md-7">
               	<div id="accordion-{{ component.id }}">
-               	  {% if component.docs|length > 0 %}  
+               	  {# if component.docs|length > 0 %}  
                   {% for key,doc in component.docs if doc  %}
                   	<div class="component-{{ component.id }}-doc component-{{ component.id }}-doc-{{ key }} {% if key!= 'readme'%}hide{%else%}show{% endif %}">{{ doc | raw }}</div>
                   {% endfor %}
                   {% else %}
                   Er kon geen documentatie worden gevonden voor dit component, bevat het een readme.md bestand?
-                  {% endif %}
+                  {% endif #}
               	</div>
               </div>
             </div>
