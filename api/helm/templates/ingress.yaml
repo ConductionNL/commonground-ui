@@ -19,6 +19,7 @@ spec:
     #    - {{ .domain | quote }}
     #  {{- end }}
     - {{ .Values.settings.domain }}
+    - www.{{ .Values.settings.domain }}
     secretName: {{ include "name" . }}-{{ .Values.settings.env }}-cert
   rules:
 #    - host: {{ .Values.settings.name }}.{{ .Values.settings.env }}.{{ .Values.settings.domain }}

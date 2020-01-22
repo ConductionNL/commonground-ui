@@ -17,9 +17,12 @@
                           <div class="form-horizontal">
                             <div class="row">
                               <div class="col-md-12">
-                              	<p>U hoeft niet in te loggen of een account aan te maken om componenten toe te voegen aan deze pagina, u kunt hieronder de URL van de desbetreffende repository opgeven. Wij lezen het component dan automatisch in, is de eigenaar van het component reeds bij ons bekend dan wordt het component ook op de overzicht pagina weergegeven. Is de eigenaar nog niet bij ons bekend dan zullen wij deze eerst handmatig valideren.</p>
+                              	<p>U hoeft uw componenten niet zelfstandig aan te melden voor deze pagina, common-ground.dev kijkt ieder uur op github welke repositories &ldquo;commonground&rdquo; vermelden. Responsories die in de root zowel een openapi.yaml (OAS3) als publiccode.yaml bevatten worden vervolgens automatisch opgenomen op dit overzicht.</p>
+
+								<p>Hierbij volstaat zowel het plaatsen van bovengenoemde bestanden als het in de root opnemen van een symlink naar bovenstaande bestanden (zolang de bestanden wel in de repository staan).</p>
                               </div>
                             </div>
+                            <!-- 
                             <div class="row">
                               <div class="col-md-8">
                                 <input type="text" class="form-control" placeholder="https://github.com/ConductionNL/love-common-ground" id="url" name="url">                           
@@ -33,6 +36,7 @@
                               	<p>Let op! voor de beta versie van deze pagina ondersteunen wij alleen github.</p>
                               </div>
                             </div>
+                             -->
                           </div>
                       </form>
                     </div>
